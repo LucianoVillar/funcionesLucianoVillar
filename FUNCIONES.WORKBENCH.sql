@@ -69,5 +69,29 @@ insert INTO categoria (id_categoria, nombre)values (8,'Aventura');
 INSERT INTO juego (id_juego, nombre,id_empresa, fecha,id_categoria, descripcion) VALUES (7, 'GTA V', 3, '2015-04-15',8,'ofrece a los jugadores la opción de explorar el galardonado mundo de Los Santos');
 insert INTO compra(id_compra, id_usuario, id_juego, monto)values(7,2,6,100.00),(8,1,7,778.00);
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `CalcularSumaTotalVentas`() RETURNS decimal(10,2)
+    READS SQL DATA
+BEGIN
+    DECLARE TotalVentas DECIMAL(10,2);
+    SELECT SUM(monto) INTO TotalVentas FROM compra;
+    RETURN TotalVentas;
+END
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `AvgValoraciones`() RETURNS int
+    READS SQL DATA
+BEGIN
+	Declare resultado int;
+    select avg(valoracion)into resultado from lifegame.valoracion;
+	RETURN resultado;
+END
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 Select CalcularSumaTotalVentas();
 Select AvgValoraciones();
